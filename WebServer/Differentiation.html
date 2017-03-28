@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Differentiation</title>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}});</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	<script type="text/javascript" src="./Differentiation.js"></script>
+	<link href="./Differentiation.css" rel="stylesheet">
+</head>
+
+<body>
+ 	<h1>differentiation</h1>
+	
+	<section>
+		<input id="ExpressionInput" type="text" placeholder="Enter an expression"></input>
+		<button onclick='display();'>Differentiate f(x)</button>
+	</section>
+	
+	<section>
+		<div id="ResultDiv" />
+	</section>
+</body>
+</html>

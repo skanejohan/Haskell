@@ -1,0 +1,20 @@
+name:		WebServer
+version:	0.0.1
+synopsis:	Web Server
+homepage:	localhost
+license:	MIT
+author:		Jag
+maintainer:	jag@jag.se
+category:	Web
+build-type:	Simple
+cabal-version:	>= 1.8
+
+executable WebServer
+  ld-options:  		-static -pthread
+  main-is:			WebServer.hs
+  build-depends:	base
+                  , text
+                  , scotty
+                  , parsec
+                  , wai
+                  , wai-extra

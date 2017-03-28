@@ -1,0 +1,41 @@
+Part 1 - finding the entrance to the underground
+------------------------------------------------
+Go to the kitchen
+Open the cupboard
+Take the cup. A key is revealed.
+Take the key
+Go to the history section
+Unlock the office door with the key
+Open the door
+Go to the office
+
+Open the safe (combination 1979, as per the plaque in the outer room, although there should be many red herrings in the office)
+In the safe you find a book about the house in what is presumably latin.
+Take the book
+Go to the travel and language section
+Examine the language bookshelf - a latin dictionary is revealed (since you hold the old book)
+Get the latin dictionary
+Now examine the book about the house - this reveals the secret - a secret door in the eastern wall of what is now the history section.
+
+Go to the history section
+Remove the books from the shelf on the eastern side of the room. This reveals an old brick wall.
+
+Go to the office
+In the desk are a number of things, get the paper clip.
+There is a large cupboard filled with a lot of stuff. Get the small metal box - you remember it from your childhood... stamps? your stone collection?
+Examine the metal box. This reveals its lock.
+Pick the lock with the paper clip and open the box.
+It contains your old stone collection. Examine the stones. This reveals a small axe (term?).
+Get the small axe. 
+
+Go to the history section
+As you are about to strike the wall, the bell at the front door rings and you move to the fiction section. 
+It is your rich uncle (you need his money, so you don't want to strike the wall while he is here)
+Go to the kitchen
+Make some tea
+Give the tea to your uncle.
+Your uncle drinks the tea, then excuses himself and disappears into the bathroom, locking the door behind him.
+
+Go to the history section
+Strike the wall with the small axe. A door is revealed.
+Open the door and enter.

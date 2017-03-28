@@ -1,0 +1,1 @@
+d:\Tools\haste-compiler\bin\hastec.exe adventure.hs

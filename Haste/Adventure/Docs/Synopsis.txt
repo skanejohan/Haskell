@@ -1,0 +1,210 @@
+Travel and language section
+---------------------------
+
+tls env = "You are in the travel and language section of the book shop. One of the " << language_shelf "shelves" env >> " in here holds dictionaries, grammar guides and the like. The " << TravelShelf "other" >> " holds books about locations near and far, exotic ones about distant cultures and sandy deserts, as well as less exotic ones such as Islington and Ipswich. In one corner stands a worn armchair. Many a time have you sat here, dreaming of faraway beaches and cities where the lights never go out. Through the window, you can see the street outside, currently covered in a thin white layer of snow. From here, you can move " << East FictionSection >> " into the fiction section."
+
+  Language shelf
+  --------------
+  - Examine: The shelf is filled with dictionaries and grammar guides. To be honest, you have probably not opened one of them after placing them in the shelf.
+  - Examine (while holding latin book): The shelf is filled with dictionaries and grammar guides. Pondering the old book in your hand, you look more closely for a latin dictionary which you are able to find, squeezed between Astrid Stedje's "Deutsche Sprache gestern und heute" and an old edition of "The Oxford Companion to English Literature".
+
+    Latin dictionary
+    ----------------
+    Take/drop
+    Examine: The cover of this book simply says "A Latin Dictionary". "Well", you mutter to yourself, "I guess no more information is needed".
+
+  Travel shelf
+  ------------
+  - Examine: Oh, the books in this shelf. How you have read them, some from cover to cover, others more haphazardly, wishing that you were somewhere other than in this dreary town.
+
+Fiction (main) section
+----------------------
+
+You are in the main section of your book shop. This section is filled with literary fiction - shelf after shelf of romance, crime and drama. At one wall, there is a small coffee table and two rickety chairs. This is where you intend to serve your loyal customers a cup of tea or coffee, and maybe a homemade biscuit or two, while they ponder on their purchases or just enjoy the literary ambience. This assumes, of course, that you have any loyal customers. Hardly anyone has used this table since you placed it there, nearly two years ago. There are two large windows here, one on each side of the entrace door. Through the windows, you can see the large square, and the beatiful old Gothic cathedral at the other side of it. Tourists are milling about, but as usual nobody seems to notice your fine establishment. On the wall, between the door and one of the windows, hangs a small plaque. Above the door is a small bell that indicates that you have a new customer. Too rarely does it sound. From here you can go west to the travel and language section, east to the art section or south to the kitchen.
+
+  Door
+  ----
+  Open: As you move toward the door to open it, you realise that you just got here and that it is not yet time for lunch. If ever a customer should venture into your shop, you had better be here.
+
+  Plaque
+  ------
+  Examine: this is a small copper plaque, on which is inscribed "Parswick Books - City Centre merchant of the year 1979". It is signed by "The merchant guild of Parswick". These were better times indeed.
+
+
+Art and architecture section
+----------------------------
+
+You are in the art and architecture section. Many of the books in these shelves are of the "coffee table book" variety. Through the window, you can see the street outside. Both the street and the red letterbox immediately outside the window are covered by a fine layer of snow. From here you can go west to the main section or south to the history section. 
+
+
+History section
+---------------
+
+This windowless room contains books on history, a subject that has been dear to you ever since you took over the bookshop. Maybe as a result of this, the room is filled to the brim with books on the subjcect. Along the walls are books in the shelves from floor to ceiling. Two coffee tables are located here, both covered by large stacks of books. The two armchairs standing in one corner are also filled with books. You really ought to get rid of some of the books in here, and clean up the room a bit. If only someone would come in and buy a lot of these books... <<entranceknown>>You look at the bookshelf on the eastern wall in a way that you have never done before.<<end>>
+
+From here you can go north<<art_section>> to the art section or south to your office<<has_key>>.<<else>> which you know is filled with even more books. At least you could enter the office if the door wasn't locked and you hadn't misplaced the key. Upon second thought, north seems the only viable option here.<<end>>
+
+  Office door
+  -----------
+  - Open / Close / Lock / Unlock
+
+  Bookshelf
+  ---------
+  - Examine (entranceknown): This shelf is filled with books. Emptying it may be a daunting task in this room that is already so overcrowded.
+  - Empty (entranceknown): You spend a good while emptying the bookshelf. The stacks on the floor grow, as do those in the two armchairs and on the coffee tables. You even stack books under the tables, to prevent them from collapsing completely. When you are done, the room is barely navigable, and the dust that has gathered on the now empty shelves for some reason makes you think of mouldy feather boas.
+  - Examine (bookshelfempty): Behind the now empty bookshelf, you can see an old brick wall.
+  - Pull (bookshelfempty): You pull the bookshelf out from the wall. It doesn't move far, given that the room is full of stacked book, but gives you access to a part of the brick wall behind it. <<introduce wall>> 
+  - Examine (bookshelfpulled): The dusty bookshelf has been pulled from its place along the wall. Behind it, you can see a part of a brick wall.
+  
+  Wall
+  ----
+  - Examine: When you look closer at the wall, one section of it looks newer than the rest.
+  - Knock (after examine): You knock at the wall. When you knock in the middle of the newer section, it sounds hollow. When you look closer, it actually has the shape of a door. Could the book be right?
+  - Hit (after knock): Hitting the wall makes your hand hurt. Maybe you could find a suitable tool?
+  - Hit (having the axe): As you are about to hit the wall, the entrance door bell chimes. You take a short pause, then walk out to meet your presumed customer. <<move to main>> <<introduce uncle Ailbeart, in main>>
+
+Kitchen
+=======
+
+The cramped kitchen contains only the most essential - a sink and a small fridge. On the wall above the sink is a small cupboard with a plain white door. Here is also a small wooden table and a rickety old chair. This room has a musty smell, but you have decided not to pursue the reason for the pungent odour. Everything in here looks as if it was cheap even when the kitchen was installed many years ago. From here you can go north to the main section or south into the bathroom.
+
+  Sink
+  ----
+  - Examine: The stainless steel sink has a strange coloration at one end. You have a faint memory of pouring some kind of paint into it it an early age. The tap provides cold water only. On the sink there is a small water cooker. <<introduce water cooker>>
+
+  Water cooker
+  ------------
+  - Examine: You have used this water cooker to make your tea for at many years. A trusty friend.
+
+  Fridge
+  ------
+  - Examine: The white fridge is humming slightly. Once in a while it makes a strange coughing noise. You take a peek inside. It is empty, as expected.
+
+  Cupboard
+  --------
+  - Examine: It is closed/open.
+
+    Cup
+    ---
+    - Examine: The cup is white and has the text "Hotel del Sol, Tenerife" written on it. As far as you can remember, you have never been to Tenerife.
+    - Take (first time): When you take the cup, you notice something that was hidden behind it. <<introduce key>>
+    - Drop
+
+    Key
+    ---
+    - Examine: This is the key to the storage room
+    - Take / drop
+
+  (Cupboard) Door
+  ---------------
+  - Examine: A plain white door.
+  - Open / Close
+
+  Table
+  -----
+  - Examine: Its worn surface is covered by the doodles that you placed there in your childhood, while spending many long hours waiting for your parents to finish their business in the bookshop.
+
+  Chair
+  -----
+  - Examine: It looks uncomfortable and, having used it on many occasions, you know it is.
+
+Bathroom
+--------
+
+The small bathroom fills its purpose. A toilet bowl, a sink and a mirror. You really ought to change the towel hanging next to the sink.
+
+  Mirror
+  ------
+  Examine: You see a handsome figure in the mirror. At 45, you are satisfied with what you see. Your flowing red hair and strong arms are unmistakably celtic traits that your family has valued for centuries.  
+ 
+Office
+------
+
+This small office is dominated by a large desk in its centre. Once this well-crafted mahogany desk was your grandfather's pride, but nowadays its worn surface can hardly be seen under all the paperwork that has gathered on top of it. You don't have to look closely to know that a large portion of the papers are bills, many with a due date too far back into the past for comfort. <<if drawer introduced>> In the desk is a drawer. <<end>>To one side stands a large cabinet which you know is filled with the kind of old stuff that goes into a cabinet that is never opened. Covering the rest of the walls are further book shelves, containing those books you know that you will never be able to sell. <<safeopen>>An old safe stands in a corner, its door slightly ajar.<<else>>In a corner stands an old safe. What it contains, you don't know. Unfortunately, when your father died very suddenly all those years ago, the combination died with him. For all you know, the solution to your financial problems could be in that sturdy old safe.<<end>> From here, you can go north to the history section.
+
+  Safe
+  ----
+  Examine: The old safe is painted black. Its heavy steel door <<safeopen>> is open.<<else>>has golden details, and a sign saying "Samuel Withers & Co. Ltd. West Bromwich". It has a dial for entering the correct combination and a large handle for opening the door.<<end>>
+  Open: <<requires the correct combination 1979>>
+
+    Old book
+    --------
+    - Take/drop
+    - Examine: The leather-bound old book is written in what you assume is latin. Although you may recognize a word here and there, you really have no way of telling what the book is about. You see a small map in one of the pages. You can't be sure but you have a slight feeling of recognition.
+    - Examine (holding the latin dictionary): Using the latin dictionary, you are able to decipher the contents of the old book. It describes the history of the house in which the bookshop is located. Most of what is in the book you already know since your parents passed this information to you - whether as a child you wanted it or not - but you find a few nuggets of new information. The most interesting part is the fact that there used to be an entrance to a cellar from what is now the history section. Looking at the map, and reading the text surrounding it, you conclude that there must be a hidden entrance to the basement behind the eastern wall, currently covered by book shelves. <<introduce bookshelf in history section>>
+    - Examine (subsequent attempts): You examine the map. Behind the bookshelf on the eastern wall of the history section it seems like there has once been an entrance to the cellar. 
+    - Examine (after accessing the entrance): You examine the map. The entrance to the cellar turned out to be exactly where the book indicated.
+
+  Desk
+  ----
+  - Examine: The mahogany desk is cluttered with papers, most of them bills. It seems that you owe the gas company £19.32 and the phone company £26.53, and the unpaid bill of £35 is most likely the reason why the morning paper hasn't appeared in a while. Looking through the piles, you realise that you have never really cleaned out the desk since your father's death. Among other things, you find a few old magazines - it seems like the pound hit a record high in December of 1957 and a record low in Febrary of 1985. And who would have known that the "Benny Hill Show" was cancelled in 1989 (you vividly remember your parents dislike of the show)? Or that French president de Gaulle accused the British government of lacking the necessary commitment to European integration in January of 1963? Well, well... In the desk, there is also a small drawer. <<introduce drawer>>.
+
+  Drawer
+  ------
+  - Open / close
+  - Examine /closed): The drawer is closed.
+  - Examine (open): The drawer is, surprisingly enough, almost empty. The only thing you see is an old paper clip.
+
+    Paper clip
+    ----------
+    - Take/drop
+    - Examine: It is a paper clip. Nothing more. Nothing less.
+
+  Cabinet
+  -------
+  - Open / close
+  - Examine (closed): This old cabinet takes up a large portion of the wall. 
+  - Examine (open): You remember a lot of this stuff from your childhood. Many a time have you intended to go through this stuff, keeping some of it and throwing away some. Likely, you would throw away most of it, which may be the reason why you haven't gotten around to the task. Some of the stuff you see on shelves is a magnifying glass, a brown "Corgi Cars" model car, a metal box, some old adventure books, 
+
+    Magnifying glass
+    ----------------
+    - Take / drop
+    - Examine: It works. The thing you look at actually appears just a little bit bigger than it actually is. As you remember, it can also be used with insects in a rather harmful way. You feel a pang of guilt at the thought. 
+
+    Model car
+    ---------
+    - Take / drop
+    - Examine: You remember playing with this car. It is brown, and somebody once told you that it represents a Leyland Princess. You have no reason to doubt that.
+
+    Metal box
+    ---------
+    - Take / drop
+    - Examine (not axe found): Most of the color has been scratched off this once green metal box. You remember it vaguely, but exactly what is inside it eludes you. It is quite heavy and when you shake it carefylly, it rattles. It has a simple lock, which at the moment seems locked.
+    - Pick lock (requires paper clip): Using the paper clip, you manage to open the lock. You open the box and it turns out to contain your old rock collection. Not much of a collection actually, a few small stones and your old rock pick.
+
+    Stones
+    ------
+    - Take / drop
+    - Examine: To be honest, you could probably go out to the square outside and pick these three rocks in just a few minutes. Come to think of it, that is probably exactly how they ended up here.
+
+    Rock pick
+    ---------
+    - Take / drop
+    - It looks rather like a hammer. If you were to describe it, that is probably the word you would use.
+
+Uncle Ailbert
+-------------
+
+"Hello Fiona, my dear!"
+1. "Hello uncle Ailbert, how are you today?"
+2. 
+-
+
+
+
+
+
+Mood sentences - the windowed sections:
+ A man and a woman walk by, hand in hand. They look happy.
+ Snow falls lightly onto the pavement outside the window.
+ You hear the faint sound of "Fairytale of New York" being played somewhere nearby.
+ An old man walks by. He stops and looks at something in the window before walking on.
+ You hear the sound of pigeons from the square outside.
+ Further down the street, someone starts singing "White Christmas".
+ The smell of roasted chestnuts from the vendors in the square reaches your nose.
+
+Mood sentences - the history section, storage room and office:
+ You sence a whiff of mildew.
+ The smell of old books fills your nostrils and makes you happy.
+ The dust in the room makes your nose itch.
+ You sneeze.
