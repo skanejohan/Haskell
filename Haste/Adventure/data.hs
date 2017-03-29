@@ -19,7 +19,7 @@ beforeExamineLanguageShelf :: GameContext -> (GameContext,Bool)
 beforeExamineLanguageShelf gc 
     | shouldFindLatinDictionary = (gc''',True)
     | otherwise = (gc,False) 
-  where shouldFindLatinDictionary = (gcCarryingItem gc HouseHistoryBook) && not (gcFlagIsSet LatinDictionaryFound gc)
+  where shouldFindLatinDictionary = gcCarryingItem gc HouseHistoryBook && not (gcFlagIsSet LatinDictionaryFound gc)
         gc'   = gcSetFlag LatinDictionaryFound gc
         gc''  = gcLocAddItem TravelSection LatinDictionary gc'
         gc''' = gc'' { gcResult = "The shelf is filled with dictionaries and grammar guides. Pondering the old book in your hand, you look more closely for a latin dictionary which you are able to find, squeezed between Astrid Stedje's \"Deutsche Sprache gestern und heute\" and an old edition of \"The Oxford Companion to English Literature\"." }
@@ -124,32 +124,12 @@ cup :: Item
 cup = item "cup" "The cup is white and has the text \"Hotel del Sol, Tenerife\" written on it. As far as you can remember, you have never been to Tenerife."
 
 cupTaken :: GameContext -> GameContext
-cupTaken = gcLocIntroduceContainedItem Kitchen StorageRoomKey Cupboard "When you take the cup, a key appears."
+cupTaken = gcLocIntroduceContainedItem Kitchen OfficeDoorKey Cupboard "When you take the cup, a key appears."
 
-storageRoomKey :: Item
-storageRoomKey = item "storage room key" "This is the key to the storage room."
+officeDoorKey :: Item
+officeDoorKey = item "office door key" "This is the key to the office."
 
 {-
-  Cupboard
-  --------
-  - Examine: It is closed/open.
-
-    Cup
-    ---
-    - Examine: 
-    - Take (first time): When you take the cup, you notice something that was hidden behind it. <<introduce key>>
-    - Drop
-
-    Key
-    ---
-    - Examine: This is the key to the storage room
-    - Take / drop
-
-  (Cupboard) Door
-  ---------------
-  - Examine: A plain white door.
-  - Open / Close
-
   Table
   -----
   - Examine: Its worn surface is covered by the doodles that you placed there in your childhood, while spending many long hours waiting for your parents to finish their business in the bookshop.
@@ -167,14 +147,13 @@ storageRoomKey = item "storage room key" "This is the key to the storage room."
 
 startContext :: GameContext
 startContext = 
-     --gcSetDoorState OfficeDoor DsClosed $
      gcSetVerb OfficeDoor Unlock $
      gcSetVerb EntranceDoor Open $ 
      gcSetVerb LatinDictionary Take $ 
      gcSetVerb WaterCooker Take $ 
      gcSetVerb Cupboard Open $ 
      gcSetVerb Cup Take $
-     gcSetVerb StorageRoomKey Take $
+     gcSetVerb OfficeDoorKey Take $
      
      gcLocAddItem HistorySection OfficeDoor $
      gcLocAddItem Office OfficeDoor $
@@ -187,7 +166,6 @@ startContext =
      gcLocAddItem Kitchen Fridge $
      gcLocAddContainedItem Kitchen Cup Cupboard $
      gcLocAddItem Kitchen Cupboard $
-     --gameContext HistorySection "Welcome to the game!"
      gameContext FictionSection "Welcome to the game!"
 
 gd :: GameData
@@ -205,7 +183,7 @@ gd = gdAddBeforeApplyFunction Open EntranceDoor beforeEntranceDoorOpen $
      gdAddItem WaterCooker waterCooker $
      gdAddItem Fridge fridge $
      gdAddItem Cupboard cupboard $
-     gdAddItem StorageRoomKey storageRoomKey $
+     gdAddItem OfficeDoorKey officeDoorKey $
      gdAddItem Cup cup $
 
      gdAddDoor HistorySection S OfficeDoor officeDoor $
@@ -225,54 +203,3 @@ gd = gdAddBeforeApplyFunction Open EntranceDoor beforeEntranceDoorOpen $
      gdAddLocation Kitchen kitchen $
      gameData
 
-{-
-
-
-
-mainSection :: Location
-mainSection = location "The main section" "You are in the main section of your book shop. This section is filled with literary fiction. From here you can go west to the art section, east to the travel section or south to the kitchen."
-
-artSection :: Location
-artSection =  location "The art section" "You are in the art section. From here you can go east to the main section."
-
-kitchen :: Location
-kitchen = location "The kitchen" "The cramped kitchen contains only the most essential - a sink and a small fridge. On the wall above the sink is a small cupboard with a plain white door. Here is also a small wooden table and a rickety old chair. This room has a musty smell, but you have decided not to pursue the reason for the pungent odour. Everything in here looks as if it was cheap even when the kitchen was installed at least thirty years ago.\n\n To the north is the main section of your bookshop. To the south you see <<TODO storageDoorDescription>>."
-
-cup :: Item
-cup = item "cup" "a white cup"
-
-cupTaken :: GameContext -> GameContext
-cupTaken = gcLocIntroduceContainedItem Kitchen StorageRoomKey Cupboard "When you take the cup, a key appears"
-
-storageRoomKey :: Item
-storageRoomKey = item "key" "a golden key"
-
-cupboard :: Item
-cupboard = item "cupboard" "A cupboard"
-
-startContext :: GameContext
-startContext = 
-     gcSetVerb Cup Take $ 
-     gcSetVerb StorageRoomKey Take $
-     gcSetVerb Cupboard Open $
-     gcLocAddContainedItem Kitchen Cup Cupboard $
-     gcLocAddItem Kitchen Cupboard $
-     gameContext MainSection "Welcome to the game!"
-
-gd :: GameData
-gd = gdAddApplyFunction Take Cup cupTaken $ 
-     gdAddExit MainSection W ArtSection $
-     gdAddExit MainSection E TravelSection $
-     gdAddExit MainSection S Kitchen $
-     gdAddExit ArtSection E MainSection $
-     gdAddExit TravelSection W MainSection $
-     gdAddExit Kitchen N MainSection $
-     gdAddItem Cup cup $ 
-     gdAddItem Cupboard cupboard $ 
-     gdAddItem StorageRoomKey storageRoomKey $
-     gdAddLocation TravelSection travelSection $
-     gdAddLocation ArtSection artSection $
-     gdAddLocation MainSection mainSection $
-     gdAddLocation Kitchen kitchen $
-     gameData
--}

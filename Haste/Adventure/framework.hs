@@ -108,11 +108,6 @@ gcItemHasVerb gc i v = case M.lookup i (gcItemVerbs gc) of
     Just vs -> S.member v vs
     Nothing -> False
 
-gcItemAllVerbs :: GameContext -> ItemId -> [Verb]
-gcItemAllVerbs gc i = case M.lookup i (gcItemVerbs gc) of
-    Just vs -> Examine : S.elems vs
-    Nothing -> [Examine]
-
 gcSetVerb :: ItemId -> Verb -> GameContext -> GameContext
 gcSetVerb i v gc = 
     let verbs = fromMaybe S.empty (M.lookup i (gcItemVerbs gc))
@@ -228,6 +223,11 @@ gdItemDescription gd gc i = case M.lookup i $ gdItems gd of
     Just it -> iDescription it gc
     Nothing -> ""
 
+gdItemKey :: GameData -> ItemId -> Maybe ItemId
+gdItemKey gd i = case M.lookup i $ gdItems gd of
+    Just it -> iKey it
+    Nothing -> Nothing
+
 gdLocationShort :: GameData -> LocationId -> String
 gdLocationShort gd l = case M.lookup l $ gdLocations gd of
     Just loc -> lShort loc
@@ -316,6 +316,14 @@ close :: GameData -> ItemId -> GameContext -> GameContext
 close gd i gc = let gc' = gcReplaceVerb i Close Open gc
                 in gc' { gcResult = "You close the " ++ gdItemName gd i ++ "." }
 
+unlock :: GameData -> ItemId -> GameContext -> GameContext 
+unlock gd i gc = let gc' = gcReplaceVerb i Unlock Lock gc
+                 in gc' { gcResult = "You unlock the " ++ gdItemName gd i ++ "." }
+
+lock :: GameData -> ItemId -> GameContext -> GameContext 
+lock gd i gc = let gc' = gcReplaceVerb i Lock Unlock gc
+               in gc' { gcResult = "You lock the " ++ gdItemName gd i ++ "." }
+
 examine :: GameData -> ItemId -> GameContext -> GameContext
 examine gd i gc = gc { gcResult = examineItem gd i gc }
 
@@ -342,12 +350,25 @@ apply gd v i gc = let (gc',b) = gdBeforeApplyFunction gd v i gc
           apply' Open    = Framework.open gd
           apply' Take    = Framework.take gd
           apply' Drop    = Framework.drop gd
+          apply' Lock    = Framework.lock gd
+          apply' Unlock  = Framework.unlock gd
 
 
 -- View model:
 
+itemAllVerbs :: GameData -> GameContext -> ItemId -> [Verb]
+itemAllVerbs gd gc i = case M.lookup i (gcItemVerbs gc) of
+                           Just vs -> if hasKey 
+                                      then Examine : S.elems vs 
+                                      else Examine : S.elems (S.delete Lock $ S.delete Unlock vs)
+                           Nothing -> [Examine]
+    where hasKey = case gdItemKey gd i of
+                       Just k  -> gcCarryingItem gc k
+                       Nothing -> True
+
+
 getItemsWithActions :: GameData -> GameContext -> [(String,[(Verb,GameContext -> GameContext)])]
 getItemsWithActions gd gc = map f $ gcLocAllItems gc (gcLocation gc)
-    where f i = let verbs = gcItemAllVerbs gc i
+    where f i = let verbs = itemAllVerbs gd gc i
                     pairs = map (\v -> (v,apply gd v i)) verbs
                 in (describeItem gd gc i,pairs)

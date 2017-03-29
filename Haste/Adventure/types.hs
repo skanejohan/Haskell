@@ -7,12 +7,11 @@ data ItemId = EntranceDoor
             | LatinDictionary
             | TravelShelf
             | HouseHistoryBook
-            | OfficeDoorKey
             | Sink
             | WaterCooker
             | Fridge
             | Cupboard
-            | StorageRoomKey
+            | OfficeDoorKey
             | Cup
             deriving (Ord, Eq, Show, Read)
 
