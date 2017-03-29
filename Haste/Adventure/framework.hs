@@ -256,6 +256,9 @@ gdLocAllDoors :: GameData -> LocationId -> [ItemId]
 gdLocAllDoors gd l = f N ++ f E ++ f S ++ f W ++ f U ++ f D
     where f d = case M.lookup (l,d) (gdLocationDoors gd) of Just id -> [id]
                                                             Nothing -> []
+gdGetDoor :: GameData -> LocationId -> Direction -> Maybe ItemId
+gdGetDoor gd l d = M.lookup (l,d) (gdLocationDoors gd)
+
 
 -------------------------------------------------------------------------------
 -----
@@ -272,16 +275,13 @@ describeItem gd gc i
 describeCurrentLocation :: GameData -> GameContext -> String
 describeCurrentLocation gd gc = gdLocationLong gd (gcLocation gc) gc
 
-getDoor :: GameData -> LocationId -> Direction -> Maybe ItemId
-getDoor gd l d = M.lookup (l,d) (gdLocationDoors gd)
-
 hasLockedDoor :: GameData -> LocationId -> Direction -> GameContext -> Bool
-hasLockedDoor gd l d gc = case getDoor gd l d of     --getDoorState gd gc l d == DsLocked
+hasLockedDoor gd l d gc = case gdGetDoor gd l d of
     Just doorId -> gcItemHasVerb gc doorId Unlock
     Nothing     -> False 
 
 hasClosedDoor :: GameData -> LocationId -> Direction -> GameContext -> Bool
-hasClosedDoor gd l d gc = case getDoor gd l d of     --getDoorState gd gc l d == DsLocked
+hasClosedDoor gd l d gc = case gdGetDoor gd l d of
     Just doorId -> gcItemHasVerb gc doorId Open
     Nothing     -> False 
 
@@ -330,7 +330,7 @@ move gd d gc
                                               gc'' = gc' { gcResult = "You move to the " ++ gdLocationShort gd (gcLocation gc') ++ "." }
                                           in gdMoveFunction gd (gcLocation gc'') gc''
     | otherwise                         = gc { gcResult = "There is no exit in that direction!" } 
-    where openDoor c = case getDoor gd (gcLocation c) d of
+    where openDoor c = case gdGetDoor gd (gcLocation c) d of
                                    Just doorId -> gcReplaceVerb doorId Open Close c
                                    Nothing     -> c
 
