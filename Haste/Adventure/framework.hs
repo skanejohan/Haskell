@@ -41,6 +41,7 @@ data GameData = GameData
     , gdExits                :: M.Map (LocationId,Direction) LocationId
     , gdMoveFunctions        :: M.Map LocationId             (GameContext -> GameContext)
     , gdBeforeApplyFunctions :: M.Map (Verb,ItemId)          (GameContext -> (GameContext,Bool))
+    , gdApplyFunctions       :: M.Map (Verb,ItemId)          (GameContext -> GameContext)
     , gdAfterApplyFunctions  :: M.Map (Verb,ItemId)          (GameContext -> GameContext)
     , gdLocationDoors        :: M.Map (LocationId,Direction) ItemId
     }
@@ -83,6 +84,7 @@ gameData = GameData
     , gdExits = M.empty
     , gdMoveFunctions = M.empty
     , gdBeforeApplyFunctions = M.empty
+    , gdApplyFunctions = M.empty
     , gdAfterApplyFunctions = M.empty
     , gdLocationDoors = M.empty
     }
@@ -197,6 +199,9 @@ gdAddLocation i l gd = gd { gdLocations = M.insert i l (gdLocations gd) }
 
 gdAddBeforeApplyFunction :: Verb -> ItemId -> (GameContext -> (GameContext,Bool)) -> GameData -> GameData
 gdAddBeforeApplyFunction v i f gd = gd { gdBeforeApplyFunctions = M.insert (v,i) f (gdBeforeApplyFunctions gd) }
+
+gdAddApplyFunction :: Verb -> ItemId -> (GameContext -> GameContext) -> GameData -> GameData
+gdAddApplyFunction v i f gd = gd { gdApplyFunctions = M.insert (v,i) f (gdApplyFunctions gd) }
 
 gdAddAfterApplyFunction :: Verb -> ItemId -> (GameContext -> GameContext) -> GameData -> GameData
 gdAddAfterApplyFunction v i f gd = gd { gdAfterApplyFunctions = M.insert (v,i) f (gdAfterApplyFunctions gd) }
@@ -345,13 +350,16 @@ move gd d gc
 apply :: GameData -> Verb -> ItemId -> GameContext -> GameContext
 apply gd v i gc = let (gc',b) = gdBeforeApplyFunction gd v i gc
                   in if b then gc' else gdAfterApplyFunction gd v i (apply' v i gc')
-    where apply' Examine = Framework.examine gd
-          apply' Close   = Framework.close gd
-          apply' Open    = Framework.open gd
-          apply' Take    = Framework.take gd
-          apply' Drop    = Framework.drop gd
-          apply' Lock    = Framework.lock gd
-          apply' Unlock  = Framework.unlock gd
+    where apply' Examine i = Framework.examine gd i
+          apply' Close i   = Framework.close gd i
+          apply' Open i    = Framework.open gd i
+          apply' Take i    = Framework.take gd i
+          apply' Drop i    = Framework.drop gd i
+          apply' Lock i    = Framework.lock gd i
+          apply' Unlock i  = Framework.unlock gd i
+          apply' v i       = case M.lookup (v,i) (gdApplyFunctions gd) of 
+              Just f  -> f
+              Nothing -> id
 
 
 -- View model:
