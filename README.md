@@ -1,2 +1,2 @@
 # Haskell
-Misc projects (Haskell)
+Old unsorted projects, implemented in Haskell
