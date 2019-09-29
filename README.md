@@ -1,0 +1,2 @@
+# Haskell
+Misc projects (Haskell)
